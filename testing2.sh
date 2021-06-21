@@ -7,8 +7,8 @@ set -o nounset
 set -o pipefail
 
 main() {
-  arg1="${1}"
-  arg2="${2}"
+  arg1="${Dissertation}"
+  arg2="${Dissertation}"
   files=0
   specific_files=0
   directories=0
