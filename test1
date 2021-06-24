@@ -1,4 +1,6 @@
 
+from Bio.Blast.Applications import NcbiblastxCommandline
+#from Bio.Blast import NCBIWWW
 from Bio.Emboss.Applications import NeedleCommandline
 from Bio import AlignIO
 
@@ -7,9 +9,24 @@ from Bio import AlignIO
 
 
 #BLAST search
+blastx_cline = NcbiblastxCommandline()
+query = "opuntia.fasta"
+db = "nr"
+evalue = 0.001
+outfmt = 5
+out= "bat.xml"
 
 
 
+
+#over the internet, but not at this moment
+fasta_sequence = open("Bat18-762.fasta").read()
+result_blast = NCBIWWW.qblast("blastn", "nt", fasta_sequence)
+
+#result saved as xml file
+with open("result_blast.xml", "w") as out_handle:
+out_handle.write(result_blast.read())
+result_blast.close()
 
 
 #alignment of the BLAST match
