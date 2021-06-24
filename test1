@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 from Bio.Blast.Applications import NcbiblastxCommandline
 #from Bio.Blast import NCBIWWW
 from Bio.Emboss.Applications import NeedleCommandline
