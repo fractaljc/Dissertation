@@ -1,2 +1,29 @@
-test1
-test2
+
+from Bio.Emboss.Applications import NeedleCommandline
+from Bio import AlignIO
+
+
+
+
+
+#BLAST search
+
+
+
+
+
+#alignment of the BLAST match
+
+#using EMBOSS
+needle_cline = NeedleCommandline()
+needle_cline.asequence= "Bat18-762.fasta"
+needle_cline.bsequence= "beta.fasta"
+needle_cline.gapopen= 10
+needle_cline.gapextend= 0.5
+needle_cline.outfile= "first_alignment.txt"
+
+#load the alignment as emboss to identify the important trait
+alignment = AlignIO.read("first_alignment.txt", "emboss")
+print(alignment)
+
+#as a matter of speed try in another time invoking pairwise2
