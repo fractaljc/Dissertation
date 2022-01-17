@@ -5,9 +5,6 @@ from Bio.Emboss.Applications import NeedleCommandline
 from Bio import AlignIO
 
 
-
-
-
 #BLAST search
 blastx_cline = NcbiblastxCommandline()
 query = "opuntia.fasta"
@@ -15,8 +12,6 @@ db = "nr"
 evalue = 0.001
 outfmt = 5
 out= "bat.xml"
-
-
 
 
 #over the internet, but not at this moment
