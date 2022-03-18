@@ -59,3 +59,9 @@ dff.to_csv("xxxx Epitopes.csv", index=False)
 xxx_epi = xxx["Peptide"].count()
 xxx_sb = xxx[xxx["EL_Rank"] <= 0.5][["Peptide", "EL_Rank"]]
 xxx_wb = xxx[xxx["EL_Rank"] > 0.5][["Peptide", "EL_Rank"]]
+
+#.describe() not added atm
+xxx_sb.min()
+xxx_sb.max()
+xxx_wb.min()
+xxx_wb.max()
