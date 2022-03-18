@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 #version 0.1
 
-from pandas import DataFrame, read_csv
 import pandas as pd
 
 df = pd.read_excel(r'C:\Users\Joan\Documents\Dissertation\PPLAV\NetMHCpan\CVS-11.xlsx')
+
+--------------------------------------
+#initial way to clean the file but this is using the csv file after deleting the first column
 
 #to exctract only the data/columns with important information
 cvs = df[df["EL_Rank"] < 2][["Peptide", "EL_Rank"]]
@@ -33,3 +35,20 @@ print("Total number ", wb, "\n")
 cvs.to_csv("CVS-11 Epitopes.csv", index=False)
 cvs_sb.to_csv("CVS-11 SB.csv", index=False)
 cvs_wb.to_csv("CVS-11 WB.csv", index=False)
+
+------------------------------------------------------------------
+
+#cleaner of the data that can be done without deleting the first row of the csv/xlsx file
+
+df = pd.read_csv(r"xxxxxxx.csv")
+
+dff = df
+dff.columns = dff.iloc[0]
+dff = dff.drop(0)
+
+#EL_Rank had to be transformed into float dtype
+dff["EL_Rank"] = dff["EL_Rank"].astype(float)
+dff = dff[dff["EL_Rank"] < 2][["Peptide", "EL_Rank"]]
+dff = dff.sort_values(by=["EL_Rank"])
+dff = dff.reset_index(drop=True)
+dff.to_csv("xxxx Epitopes.csv", index=False)
