@@ -51,4 +51,11 @@ dff["EL_Rank"] = dff["EL_Rank"].astype(float)
 dff = dff[dff["EL_Rank"] < 2][["Peptide", "EL_Rank"]]
 dff = dff.sort_values(by=["EL_Rank"])
 dff = dff.reset_index(drop=True)
+
+#only a file with all the epitopes
 dff.to_csv("xxxx Epitopes.csv", index=False)
+
+#from this main clean file the overall count, SB and WB will be count and parsed
+xxx_epi = xxx["Peptide"].count()
+xxx_sb = xxx[xxx["EL_Rank"] <= 0.5][["Peptide", "EL_Rank"]]
+xxx_wb = xxx[xxx["EL_Rank"] > 0.5][["Peptide", "EL_Rank"]]
