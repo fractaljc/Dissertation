@@ -48,7 +48,11 @@ dff = dff.drop(0)
 
 #EL_Rank had to be transformed into float dtype
 dff["EL_Rank"] = dff["EL_Rank"].astype(float)
-dff = dff[dff["EL_Rank"] < 2][["Peptide", "EL_Rank"]]
+
+#dff = dff[dff["EL_Rank"] < 2][["Peptide", "EL_Rank"]]
+
+#to aid readability and also to add new columns to analyse
+dff = dff[["Pos", "Peptide", "EL_Rank", "BA_Rank"]].query("EL_Rank <= 2")
 dff = dff.sort_values(by=["EL_Rank"])
 dff = dff.reset_index(drop=True)
 
@@ -57,10 +61,14 @@ dff.to_csv("xxxx Epitopes.csv", index=False)
 
 #from this main clean file the overall count, SB and WB will be count and parsed
 xxx_epi = xxx["Peptide"].count()
-xxx_sb = xxx[xxx["EL_Rank"] <= 0.5][["Peptide", "EL_Rank"]]
-xxx_wb = xxx[xxx["EL_Rank"] > 0.5][["Peptide", "EL_Rank"]]
+#xxx_sb = xxx[xxx["EL_Rank"] <= 0.5][["Peptide", "EL_Rank"]]
+xxx_sb = dff.query("EL_Rank <= 0.5")
+#xxx_wb = xxx[xxx["EL_Rank"] > 0.5][["Peptide", "EL_Rank"]]
+xxx_wb = dff.query("EL_Rank > 0.5")
 
 #.describe() not added atm
+#dff.iloc[0] this will retrieve the min, min() is not giving a proper output
+#must be investigated
 xxx_sb.min()
 xxx_sb.max()
 xxx_wb.min()
