@@ -69,7 +69,11 @@ xxx_wb = dff.query("EL_Rank > 0.5")
 #.describe() not added atm
 #dff.iloc[0] this will retrieve the min, min() is not giving a proper output
 #must be investigated
-xxx_sb.min()
-xxx_sb.max()
-xxx_wb.min()
-xxx_wb.max()
+#xxx_sb.min()
+#xxx_sb.max()
+#xxx_wb.min()
+#xxx_wb.max()
+
+#to use in plot bar
+total_sb = xxx1_sb["Peptide"].count(), xxx2_sb["Peptide"].count()
+total_wb = xxx1_wb["Peptide"].count(), xxx2_wb["Peptide"].count()
