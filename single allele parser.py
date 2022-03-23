@@ -77,3 +77,27 @@ xxx_wb = dff.query("EL_Rank > 0.5")
 #to use in plot bar
 total_sb = xxx1_sb["Peptide"].count(), xxx2_sb["Peptide"].count()
 total_wb = xxx1_wb["Peptide"].count(), xxx2_wb["Peptide"].count()
+
+
+----------------------
+
+#multiFASTA version
+
+df = pd.read_csv(r"xxx.csv")
+dff = df
+dff.columns = dff.iloc[0]
+dff = dff.drop(0)
+dff["EL_Rank"] = dff["EL_Rank"].astype(float)
+dff = dff[["Pos", "Peptide", "ID", "EL_Rank", "BA_Rank"]].query("EL_Rank <= 2")
+dff = dff.sort_values(by=["EL_Rank"])
+dff = dff.reset_index(drop=True)
+dff.to_csv("xxx Epitopes.csv", index=False)
+
+#to extract number of sequences
+dff["ID"].unique()
+
+#to extract number of epitopes per sequence/year
+dff["ID"].value_counts()
+
+#count of epitopes on all sequences
+dff["Peptide"].value_counts()
