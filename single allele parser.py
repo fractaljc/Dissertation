@@ -101,3 +101,7 @@ dff["ID"].value_counts()
 
 #count of epitopes on all sequences
 dff["Peptide"].value_counts()
+
+#to see occurrence of each epitope as overall
+df_x = pd.read_csv("X Epitopes.csv")
+df_x["Peptide"].value_counts()
