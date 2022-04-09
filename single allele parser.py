@@ -97,7 +97,7 @@ dff.to_csv("xxx Epitopes.csv", index=False)
 dff["ID"].unique()
 
 #to extract number of epitopes per sequence/year
-dff["ID"].value_counts()
+dff["ID"].value_counts() #df_x.groupby('ID').size() another way
 
 #count of epitopes on all sequences
 dff["Peptide"].value_counts()
@@ -105,3 +105,12 @@ dff["Peptide"].value_counts()
 #to see occurrence of each epitope as overall
 df_x = pd.read_csv("X Epitopes.csv")
 df_x["Peptide"].value_counts()
+
+#to obtain the strongest binder per sequence/year
+df_country.groupby("ID")["EL_Rank"].min().sort_values()
+
+#to display epitopes and el_rank% per seq/year and sorted by min
+df_country.groupby("ID")[["Peptide", "EL_Rank"]].min().sort_values(by="EL_Rank")
+
+#all sb epitopes but must be checked because it is giving as output all of them
+df_country.groupby("Peptide")["EL_Rank"].min().sort_values()
