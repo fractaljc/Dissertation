@@ -114,3 +114,26 @@ df_country.groupby("ID")[["Peptide", "EL_Rank"]].min().sort_values(by="EL_Rank")
 
 #all sb epitopes but must be checked because it is giving as output all of them
 df_country.groupby("Peptide")["EL_Rank"].min().sort_values()
+
+
+#this parts is done to standardise the accessions in country/allele def
+#and year df dowloaded from VIPR which contains information about the sequencdes
+#cleaning of the accessions
+#country df
+df_country_cleaned = df_country["ID"].str.extract(r"([A-Z0-9]+)")
+df_country_cleaned.columns = ["ID"]
+#df_country_cleaned
+
+#year df
+df_year_cleaned = df_year["GenBank Protein Accession"].str.extract(r"([A-Z0-9]+)")
+df_year_cleaned.columns = ["ID"]
+#df_year_cleaned
+
+#change of the old accession for the cleaned
+df_country_new = df_country
+df_country_new["ID"] = df_country_cleaned["ID"]
+#df_country_new
+
+df_year_new = df_year
+df_year_new["GenBank Protein Accession"] = df_year_cleaned["ID"]
+#df_year_new
