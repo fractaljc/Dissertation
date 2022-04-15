@@ -9,6 +9,13 @@ df_virus_country3= pd.read_csv(r"  .csv")
 
 df_year = pd.read_excel(r" .xls")
 
+#new DataFrame which only stores the accession identifier (ID)
+#for skeleton
+country1 = df_virus_country1["ID"]
+country2 = df_virus_country2["ID"]
+country3 = df_virus_country3["ID"]
+country4 = df_virus_country4["ID"]
+
 
 #new data frame object with the data of the collection year and them
 #absolute number of epitopes per alleles/df_country
@@ -86,5 +93,5 @@ df_year["country4-Epitopes"] = [country4[country4 == "gb_AHI43686_ncb"].count(),
                     country4[country4 == "gb_ACW82995_ncb"].count(),
                     country4[country4 == "gb_ACW82998_ncb"].count()]
 
-dff = dff.reset_index(drop=True)
-dff.to_csv("xxx Epitopes.csv", index=False)
+df_year = df_year.reset_index(drop=True)
+df_year.to_csv("Virusx Changes Over Time.csv", index=False)
