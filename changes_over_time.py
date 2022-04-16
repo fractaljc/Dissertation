@@ -94,11 +94,18 @@ df_year["country4-Epitopes"] = [country4[country4 == "gb_AHI43686_ncb"].count(),
                     country4[country4 == "gb_ACW82998_ncb"].count()]
 
 #data must be reshaped in order to get informational graphics
-df_overall = pd.melt(df_year, id_vars=["Virus Type", "GenBank Protein Accession", "Collection Date"], 
+df_overall1 = pd.melt(df_year, id_vars=["Virus Type", "GenBank Protein Accession", "Collection Date"],
                value_vars=["Colombia", "England", "Finland", "A0201"],
                var_name="Country/Allele",
                value_name="Epitopes")
 
 
-df_overall = df_overall.reset_index(drop=True)
+df_overall1 = df_overall.reset_index(drop=True)
+
+#for each one of the different viruses will be created a DataFrame object
+#and then they will be appended on a final DataFrame containing all
+#meaningful data of all viruses or serotypes
+
+df_overall = pd.concat([df_overall1, df_overall2])
+
 df_overall.to_csv("Virusx Changes Over Time.csv", index=False)
