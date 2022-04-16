@@ -20,7 +20,7 @@ country4 = df_virus_country4["ID"]
 #new data frame object with the data of the collection year and them
 #absolute number of epitopes per alleles/df_country
 
-df_year = df_year[["Collection Date", "GenBank Protein Accession"]].sort_values("Collection Date")
+df_year = df_year[["Virus Type", "Collection Date", "GenBank Protein Accession"]].sort_values("Collection Date")
 df_year["country1-Epitopes"] = [country1[country1 == "gb_AHI43686_ncb"].count(),
                     country1[country1 == "gb_ACW82988_ncb"].count(),
                     country1[country1 == "gb_ACW82987_ncb"].count(),
@@ -93,5 +93,12 @@ df_year["country4-Epitopes"] = [country4[country4 == "gb_AHI43686_ncb"].count(),
                     country4[country4 == "gb_ACW82995_ncb"].count(),
                     country4[country4 == "gb_ACW82998_ncb"].count()]
 
-df_year = df_year.reset_index(drop=True)
-df_year.to_csv("Virusx Changes Over Time.csv", index=False)
+#data must be reshaped in order to get informational graphics
+df_overall = pd.melt(df_year, id_vars=["Virus Type", "GenBank Protein Accession", "Collection Date"], 
+               value_vars=["Colombia", "England", "Finland", "A0201"],
+               var_name="Country/Allele",
+               value_name="Epitopes")
+
+
+df_overall = df_overall.reset_index(drop=True)
+df_overall.to_csv("Virusx Changes Over Time.csv", index=False)
