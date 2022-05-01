@@ -120,20 +120,28 @@ df_country.groupby("Peptide")["EL_Rank"].min().sort_values()
 #and year df dowloaded from VIPR which contains information about the sequencdes
 #cleaning of the accessions
 #country df
-df_country_cleaned = df_country["ID"].str.extract(r"([A-Z0-9]+)")
-df_country_cleaned.columns = ["ID"]
-#df_country_cleaned
+df_netmhcpan = pd.read_csv(r"xxx.csv")
+df_accession_cleaned = df_netmhcpan["ID"].str.extract(r"([A-Z0-9]+)")
+df_accession_cleaned.columns = ["ID"]
 
-#year df
-df_year_cleaned = df_year["GenBank Protein Accession"].str.extract(r"([A-Z0-9]+)")
+
+df_netmhcpan_refined = df_netmhcpan
+df_netmhcpan_refined["ID"] = df_accession_cleaned["ID"]
+
+
+df_vipr = pd.read_excel(r"xxx.xls")
+df_vipr = df_vipr[["GenBank Protein Accession", "Collection Date"]]
+df_year_cleaned = df_vipr["GenBank Protein Accession"].str.extract(r"([A-Z0-9]+)")
 df_year_cleaned.columns = ["ID"]
-#df_year_cleaned
 
-#change of the old accession for the cleaned
-df_country_new = df_country
-df_country_new["ID"] = df_country_cleaned["ID"]
-#df_country_new
 
-df_year_new = df_year
-df_year_new["GenBank Protein Accession"] = df_year_cleaned["ID"]
-#df_year_new
+df_vipr_refined = df_vipr
+df_vipr_refined["GenBank Protein Accession"] = df_year_cleaned["ID"]
+
+
+vipr_dict = dict(df_vipr_refined.values)
+
+
+df_netmhcpan_refined["Year"] = ""
+df_netmhcpan_refined["Year"] = df_netmhcpan_refined["ID"].map(vipr_dict)
+df_netmhcpan_refined
