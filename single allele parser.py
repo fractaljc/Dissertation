@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-#version 0.1
+#version 0.9
 
 import pandas as pd
 
-df = pd.read_excel(r'C:\Users\Joan\Documents\Dissertation\PPLAV\NetMHCpan\CVS-11.xlsx')
+df = pd.read_excel(r'.xlsx')
 
 --------------------------------------
 #initial way to clean the file but this is using the csv file after deleting the first column
