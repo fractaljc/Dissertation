@@ -144,4 +144,8 @@ vipr_dict = dict(df_vipr_refined.values)
 
 df_netmhcpan_refined["Year"] = ""
 df_netmhcpan_refined["Year"] = df_netmhcpan_refined["ID"].map(vipr_dict)
+
+#new column to indicate the country or allele
+df_netmhcpan_refined["Country/Allele"] = "xxx"
+
 df_netmhcpan_refined
