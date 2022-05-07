@@ -5,7 +5,7 @@ import pandas as pd
 
 df = pd.read_excel(r'.xlsx')
 
---------------------------------------
+#*************************************************************************
 #initial way to clean the file but this is using the csv file after deleting the first column
 
 #to exctract only the data/columns with important information
@@ -36,7 +36,7 @@ cvs.to_csv("CVS-11 Epitopes.csv", index=False)
 cvs_sb.to_csv("CVS-11 SB.csv", index=False)
 cvs_wb.to_csv("CVS-11 WB.csv", index=False)
 
-------------------------------------------------------------------
+#*************************************************************************
 
 #cleaner of the data that can be done without deleting the first row of the csv/xlsx file
 
@@ -79,19 +79,50 @@ total_sb = xxx1_sb["Peptide"].count(), xxx2_sb["Peptide"].count()
 total_wb = xxx1_wb["Peptide"].count(), xxx2_wb["Peptide"].count()
 
 
-----------------------
+#*************************************************************************
 
 #multiFASTA version
 
-df = pd.read_csv(r"xxx.csv")
-dff = df
-dff.columns = dff.iloc[0]
-dff = dff.drop(0)
-dff["EL_Rank"] = dff["EL_Rank"].astype(float)
-dff = dff[["Pos", "Peptide", "ID", "EL_Rank", "BA_Rank"]].query("EL_Rank <= 2")
-dff = dff.sort_values(by=["EL_Rank"])
-dff = dff.reset_index(drop=True)
-dff.to_csv("xxx Epitopes.csv", index=False)
+#this function will use the raw data from NetMHCpan and parse it by the eluted ligand (EL)
+#it is meant to use only csv files as xls files are prompting an error when trying to use it
+def allele_parser(filename):
+    """Return a csv file with the parsed data from netMHCpan"""
+
+    df = pd.read_csv(filename) #r""
+    f = open(filename) #r""
+
+
+    #netMHCpan gives an output with the allele as first row
+    #name of the allele extracted to be use for the file name
+    line = f.readlines(1)
+    p = re.compile(r'(HLA-\w*):(\w*)')
+    line = str(line)
+    match = p.search(line)
+    allele_name = match.group(1) + match.group(2)
+
+    #dff to be used to create multiples csv files in future versions
+    dff = df
+
+    #here the script selects the row containing the columns name
+    dff.columns = dff.iloc[0]
+    dff = dff.drop(0)
+
+    #data type object changed in order to help to manipulate the data later on
+    dff["Pos"] = dff["Pos"].astype(int)
+    dff["EL_Rank"] = dff["EL_Rank"].astype(float)
+    dff["BA_Rank"] = dff["BA_Rank"].astype(float)
+
+
+    #columns of relevance selected and threshold recommended by NetMHCpan-4.1 developers
+    dff = dff[["Pos", "Peptide", "ID", "EL_Rank", "BA_Rank"]].query("EL_Rank <= 2")
+    dff = dff.sort_values(by=["EL_Rank"])
+
+    #saves the parsed data sorted by EL Rank% only at this moment
+    dff = dff.reset_index(drop=True)
+
+    return dff.to_csv(f"{allele_name}.csv", index=False)
+
+#*************************************************************************
 
 #to extract number of sequences
 dff["ID"].unique()
@@ -114,38 +145,3 @@ df_country.groupby("ID")[["Peptide", "EL_Rank"]].min().sort_values(by="EL_Rank")
 
 #all sb epitopes but must be checked because it is giving as output all of them
 df_country.groupby("Peptide")["EL_Rank"].min().sort_values()
-
-
-#this parts is done to standardise the accessions in country/allele def
-#and year df dowloaded from VIPR which contains information about the sequencdes
-#cleaning of the accessions
-#country df
-df_netmhcpan = pd.read_csv(r"xxx.csv")
-df_accession_cleaned = df_netmhcpan["ID"].str.extract(r"([A-Z0-9]+)")
-df_accession_cleaned.columns = ["ID"]
-
-
-df_netmhcpan_refined = df_netmhcpan
-df_netmhcpan_refined["ID"] = df_accession_cleaned["ID"]
-
-
-df_vipr = pd.read_excel(r"xxx.xls")
-df_vipr = df_vipr[["GenBank Protein Accession", "Collection Date"]]
-df_year_cleaned = df_vipr["GenBank Protein Accession"].str.extract(r"([A-Z0-9]+)")
-df_year_cleaned.columns = ["ID"]
-
-
-df_vipr_refined = df_vipr
-df_vipr_refined["GenBank Protein Accession"] = df_year_cleaned["ID"]
-
-
-vipr_dict = dict(df_vipr_refined.values)
-
-
-df_netmhcpan_refined["Year"] = ""
-df_netmhcpan_refined["Year"] = df_netmhcpan_refined["ID"].map(vipr_dict)
-
-#new column to indicate the country or allele
-df_netmhcpan_refined["Country/Allele"] = "xxx"
-
-df_netmhcpan_refined
