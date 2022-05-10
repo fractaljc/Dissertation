@@ -81,12 +81,17 @@ def vipr_parser(filename):
 
     #standardisation of the genbank protein accession that is equal to the ID
     #column on the refined netMHCpan output
-    df_year_cleaned = df_vipr["GenBank Protein Accession"].str.extract(r"([A-Z0-9]+)")
-    df_year_cleaned.columns = ["ID"]
+    df_acc_cleaned = df_vipr["GenBank Protein Accession"].str.extract(r"([A-Z0-9]+)")
+
+    #ViPR does not have an uniform way to display the collection data
+    #in order to standardise it, I will only capture the year
+    df_year_cleaned = df_vipr["Collection Date"].str.extract(r"([1-9]\d{3})")
 
     df_vipr_refined = df_vipr
-    df_vipr_refined["GenBank Protein Accession"] = df_year_cleaned["ID"]
+    df_vipr_refined["GenBank Protein Accession"] = df_acc_cleaned
+    df_vipr_refined["Collection Date"] = df_year_cleaned
 
+    #dictionary to map against netMHCpan output
     vipr_dict = dict(df_vipr_refined.values)
 
 
