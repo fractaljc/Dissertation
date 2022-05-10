@@ -85,6 +85,7 @@ def vipr_parser(filename):
 
     #ViPR does not have an uniform way to display the collection data
     #in order to standardise it, I will only capture the year
+    df_vipr["Collection Date"] = df_vipr["Collection Date"].astype("string")
     df_year_cleaned = df_vipr["Collection Date"].str.extract(r"([1-9]\d{3})")
 
     df_vipr_refined = df_vipr
