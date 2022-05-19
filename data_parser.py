@@ -26,13 +26,13 @@ class Parser:
     opens file to perform regex.
     """
 
-    def __init__(self, netMHCpan_output):
-        self.df = pd.read_table(netMHCpan_output, low_memory=False)
+    def __init__(self, netmhcpan_output):
+        self.df = pd.read_table(netmhcpan_output, low_memory=False)
 
 
-    def alleles(self, netMHCpan_output):
+    def alleles(self, netmhcpan_output):
 
-        self.f = open(netMHCpan_output)
+        self.f = open(netmhcpan_output)
         line = self.f.readlines(1)
         p = re.compile(r'(HLA-\w*):(\w*)')
         line = str(line)
