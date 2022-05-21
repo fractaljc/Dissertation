@@ -219,4 +219,60 @@ class country_and_year:
         df_virus_final = df_overall
         df_virus_final["Year"] = df_virus_final["ID"].map(vipr_dict)
 
-        df_virus_final.to_csv(f"{final_name} Changes Over Time.csv", index=False)
+        df_virus_final.to_csv(f"{final_name}.csv", index=False)
+
+        #this part creates new DataFrame objects with the data of the collection year and then
+        #absolute number of epitopes per allele/country
+
+        #list of only accessions
+        acc_list = df_overall["ID"].unique().tolist()
+
+
+        #DataFrame object for each country/allele to be counted
+        country_allele1 = df_overall[df_overall["Country/Allele"] == country_1]["ID"]
+        country_allele2 = df_overall[df_overall["Country/Allele"] == country_2]["ID"]
+        country_allele3 = df_overall[df_overall["Country/Allele"] == country_3]["ID"]
+        country_allele4 = df_overall[df_overall["Country/Allele"] == country_4]["ID"]
+        #country_allele5 = df_overall[df_overall["Country/Allele"] == country_5]["ID"]
+
+        #dictionary to store total allele count per accession
+        total_alleles1 = {}
+        for i in range(len(acc_list)):
+            total_alleles1[acc_list[i]] = country_allele1[country_allele1 == acc_list[i]].count()
+
+        total_alleles2 = {}
+        for i in range(len(acc_list)):
+            total_alleles2[acc_list[i]] = country_allele2[country_allele2 == acc_list[i]].count()
+
+        total_alleles3 = {}
+        for i in range(len(acc_list)):
+            total_alleles3[acc_list[i]] = country_allele3[country_allele3 == acc_list[i]].count()
+
+        total_alleles4 = {}
+        for i in range(len(acc_list)):
+            total_alleles4[acc_list[i]] = country_allele4[country_allele4 == acc_list[i]].count()
+
+        #total_alleles5 = {}
+        #for i in range(len(acc_list)):
+            #total_alleles5[acc_list[i]] = country_allele5[country_allele5 == acc_list[i]].count()
+
+
+        df_summary = self.df
+        df_summary = df_summary[["Virus Type", "Collection Date", "GenBank Protein Accession"]]
+        df_summary["GenBank Protein Accession"] = df_acc_cleaned
+        df_summary["Collection Date"] = df_year_cleaned
+        df_summary[country_1] = df_summary["GenBank Protein Accession"].map(total_alleles1)
+        df_summary[country_2] = df_summary["GenBank Protein Accession"].map(total_alleles2)
+        df_summary[country_3] = df_summary["GenBank Protein Accession"].map(total_alleles3)
+        df_summary[country_4] = df_summary["GenBank Protein Accession"].map(total_alleles4)
+        #df_summary[country_5, "Alleles"] = df_summary["GenBank Protein Accession"].map(total_alleles5)
+
+        #data must be reshaped in order to get informational graphics
+        df_total_alleles = pd.melt(df_summary, id_vars=["Virus Type", "GenBank Protein Accession", "Collection Date"],
+               var_name="Country/Allele",
+               value_name="Epitopes")
+
+        #final csv file with the data for a particular serotype or virus
+        #this file will be used for data visualisation
+        df_total_alleles = df_total_alleles.reset_index(drop=True)
+        df_total_alleles.to_csv(f"{final_name}_over_time.csv", index=False)
