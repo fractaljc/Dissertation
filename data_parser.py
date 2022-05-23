@@ -5,13 +5,13 @@ import pandas as pd
 import re
 
 
-#*************************************************************************
+#******************************************************************************
 #this class  will use the raw data from NetMHCpan 4.1 and parse it by
 #the eluted ligand (EL)
 #it returns a csv file with the data parsed for at least 4 alleles
 #data = Parser("xxx.xls") call the instance with the output fron netMHCpan
 #data.alleles("xxx.xls")  call to parse the file and save each allele as csv
-#*************************************************************************
+#******************************************************************************
 
 class Parser:
     """
