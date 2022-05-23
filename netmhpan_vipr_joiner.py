@@ -4,7 +4,7 @@
 import pandas as pd
 from glob import glob
 
-#########
+#******************************************************************************
 #version comments:
 #set a variable with the file containing the vipr file to be used
 #vipr = r"path"
@@ -13,7 +13,7 @@ from glob import glob
 #appropriate file path (no r"" needed) as well as the name of the virus
 #analysed
 
-#############
+#******************************************************************************
 
 class country_and_year:
     """
