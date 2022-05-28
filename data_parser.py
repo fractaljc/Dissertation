@@ -46,8 +46,7 @@ class Parser:
 
         # common columns
         df_common = self.df.iloc[:, 0:3]
-        #print(df_common) working
-
+        
         #unique columns per allele
         #1st allele
         df_1st_allele = self.df.iloc[:, 3:9]
