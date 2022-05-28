@@ -43,3 +43,9 @@ class visualiser:
         plt.savefig(f"{virus_name}")
 
         plt.show()
+
+        sns.catplot(x="Collection Date", y="Epitopes", col="Country/Allele", 
+                    data = self.df, kind="bar", ci = 95)
+        plt.ylim(self.df["Epitopes"].min() - 5, self.df["Epitopes"].max() + 5)
+
+        plt.savefig(f"{virus_name} by allele")
