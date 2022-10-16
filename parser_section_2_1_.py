@@ -11,10 +11,9 @@ import re
 #this script belongs to the 2.1.4 Epitope prediction and data analysis of
 #the MSc dissertation
 #******************************************************************************
+df_netmhcpan = input("NetMHCpan file: ")
 
-
-df = pd.read_table("1101_brz_.xls", low_memory=False)
-
+df = pd.read_table(df_netmhcpan, low_memory=False)
 
 # common columns
 df_common = df.iloc[:, 0:3]
