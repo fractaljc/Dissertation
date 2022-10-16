@@ -22,8 +22,6 @@ df_common = df.iloc[:, 0:3]
 df_1st_allele = df.iloc[:, 3:9]
 
 df_overall_1st = df_common.join(df_1st_allele)
-
-#final csv file with 1st allele parsed
 dff = df_overall_1st
 
 #here the script selects the row containing the columns name
