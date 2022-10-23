@@ -24,10 +24,9 @@ This script returns a csv file with the data parsed for the number of alleles
 that the user want but the only options are 1, 4 and 5 alleles
 all csv file created will be used for downstream analysis
 data = Parser("xxx.xls") call the instance with the output fron netMHCpan
-data.alleles("NetMHCpan_output")  call the file to create a DataFrame object
-one_allele(): call to parse and return a csv file
-four_alleles(): call to parse and return four csv files
-five_alleles(): call to parse and return five csv files
+data.one_allele(): call to parse and return a csv file
+data.four_alleles(): call to parse and return four csv files
+data.five_alleles(): call to parse and return five csv files
 
 --------------------------------------------------------------------------
 Usage:
