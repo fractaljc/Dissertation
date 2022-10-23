@@ -38,7 +38,7 @@ AUTHOR
 
 Joan Manuel Amaya Cuesta
 
-Copyright:  (c) Joan M. Amaya C., 2022
+Copyright:  (c) Joan M. Amaya Cuesta, 2022
 
 
 THANKS
@@ -48,7 +48,7 @@ I would like to thank my supervisor Dr Adrian Shepherd for his guidance througho
 Also, I would want to thank Dr Lorraine McElhinney for her support all this time.
 
 REFERENCES
-[1] [17] Reynisson, B., Alvarez, B., Paul, S., Peters, B., & Nielsen, M. (2020). 
+[1] Reynisson, B., Alvarez, B., Paul, S., Peters, B., & Nielsen, M. (2020). 
 NetMHCpan-4.1 and NetMHCIIpan-4.0: improved predictions of MHC antigen presentation 
 by concurrent motif deconvolution and integration of MS MHC eluted ligand data. 
 Nucleic acids research, 48(W1), W449–W454. https://doi.org/10.1093/nar/gkaa379
