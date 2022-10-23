@@ -35,12 +35,16 @@ The order of the scripts in order to be used or to follow the dissertation are:
      non-MHC-driven viruses” section.
 
 AUTHOR
+
 Joan Manuel Amaya Cuesta
+
 Copyright:  (c) Joan M. Amaya C., 2022
 
 
 THANKS
+
 I would like to thank my supervisor Dr Adrian Shepherd for his guidance throughout this dissertation.
+
 Also, I would want to thank Dr Lorraine McElhinney for her support all this time.
 
 REFERENCES
