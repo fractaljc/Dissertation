@@ -15,9 +15,10 @@ Author:     Joan Manuel Amaya Cuesta
 Description:
 ============
 Script used and referenced in 2.2.4 Epitope prediction and data analysis
-of my Bioinformatics dissertation.
+ (Zika incursion in Brazil) of my Bioinformatics dissertation.
 This program uses the csv file "changes_over_time.csv" created with
-joiner_mapper in order to create two png file, one with the overall trend in
+joiner_mapper in order to create two png file with barplots,
+one with the overall trend in
 all years and another one with each individual allele plotted.
 
 data = visualiser("xxx_over_time.csv") call the csv file
@@ -41,21 +42,21 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 #******************************************************************************
-#data = "path or filename"
-#visualiser(data)
-#******************************************************************************
 
 class visualiser:
     """
-    explanation.
+    Inspects the data from the joiner_mapper output and creates two png files
+    with barplot useful for data visualisation.
 
     Object attributes:
-    xxx (str): .
-    yyy (str): .
-    zzz (list): .
+    __init__(self, virus_parsed): opens _over_time.csv file and returns
+                                  two png files.
 
     Object methods:
-    __init__(self, input): .
+    __init__(self, virus_parsed): using the _over_time.csv file uses the data
+    to create two png files with barplots, one with the overall
+    trend of all alleles, and other with each allele plotted.
+
     """
 
     def __init__(self, virus_parsed):
